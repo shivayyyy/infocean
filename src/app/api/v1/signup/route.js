@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import connectDB from "@/dbConnection/db.js";
+import { cookies } from "next/headers";
 
 console.log("Connecting to the database...");
 connectDB();
@@ -55,7 +56,7 @@ export async function POST(request) {
       { expiresIn: "5d" }
     );
 
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
         message: "User created successfully",
         user: {
@@ -67,6 +68,18 @@ export async function POST(request) {
       },
       { status: 201 }
     );
+
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 5,
+      path: "/",
+    });
+    response.cookies.set("Cookie_1", "", {
+      httpOnly: true,
+      path: "/",
+      maxAge: 0, // This will remove the cookie
+    });
+    return response;
   } catch (error) {
     console.error("Error in signup route:", error);
     if (error.name === "ValidationError") {

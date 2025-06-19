@@ -16,10 +16,12 @@ const contentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    tags: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Tag",
-    },
+    tags: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tag",
+      },
+    ],
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

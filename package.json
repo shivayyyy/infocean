@@ -1,5 +1,5 @@
 {
-  "name": "infocean",
+  "name": "infocean-project",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,12 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "bcryptjs": "^3.0.2",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.15.1",
     "next": "15.3.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-tweet": "^3.2.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
