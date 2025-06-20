@@ -1,15 +1,12 @@
 "use client";
-import React, { useState } from "react";
-import { Button } from "@/components/Button";
-import { CrossIcon, ShareIcon } from "./Icons";
+import React from "react";
+import { CrossIcon } from "./Icons";
+import { Button } from "./Button";
 
-const Input = ({ placeholder, type, name, value, onChange }) => {
+const Input = ({ placeholder, onChange }) => {
   return (
     <input
-      type={type}
       placeholder={placeholder}
-      name={name}
-      value={value}
       onChange={onChange}
       className="border border-gray-300 rounded-md p-2 w-full"
     />
@@ -17,22 +14,34 @@ const Input = ({ placeholder, type, name, value, onChange }) => {
 };
 
 export function PopupForm({ open, onClose }) {
+  const onChange = (e) => {
+    console.log(e.target.value);
+  };
+  const handleClick = () => {
+    e.preventDefault();
+  };
   return (
-    <div>
+    <>
       {open && (
-        <div className="z-50 fixed opacity-60 h-screen w-screen top-0 left-0 bg-slate-700 flex flex-col align-center itmes-center justify-center ">
-          <span className="bg-white h-1/2 w-1/2 sm:w-1/3 sm:h-1/3  rounded p-4 opacity-100 ">
-            <div className="flex justify-end ">
-              <div onClick={onClose} className="cursor-pointer">
-                <CrossIcon />
-              </div>
+        <div className="fixed h-screen w-screen  z-400 flex items-center justify-center bg-slate-500 opacity-90">
+          {/* Popup Card */}
+          <span className="bg-white rounded p-4 opacity-100 w-11/12 sm:w-1/2 md:w-1/3   relative">
+            <div
+              onClick={onClose}
+              className="absolute top-2 right-2 text-gray-600 hover:text-black"
+            >
+              <CrossIcon size="5" />
             </div>
-            <div>
-              <Input placeholder="name" value="name" name="name" type="text" />
+
+            <div className="mt-6">
+              <Input placeholder="Title of content" onChange={onChange} />
+            </div>
+            <div className="flex justify-center">
+              <Button variant="primary" text="Submit" onClick={handleClick} />
             </div>
           </span>
         </div>
       )}
-    </div>
+    </>
   );
 }
