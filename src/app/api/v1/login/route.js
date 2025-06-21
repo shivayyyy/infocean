@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import connectDB from "@/dbConnection/db.js";
-import { serialize } from "cookie";
 
 console.log("Connecting to the database...login route");
 connectDB();

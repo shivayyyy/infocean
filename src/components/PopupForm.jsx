@@ -23,9 +23,8 @@ export function PopupForm({ open, onClose }) {
   return (
     <>
       {open && (
-        <div className="fixed h-screen w-screen  z-400 flex items-center justify-center bg-slate-500 opacity-90">
-          {/* Popup Card */}
-          <span className="bg-white rounded p-4 opacity-100 w-11/12 sm:w-1/2 md:w-1/3   relative">
+        <div className="fixed h-screen w-screen  z-400 flex items-center justify-center bg-gray-700 opacity-90">
+          <div className="bg-white rounded p-4 opacity-100 w-11/12 sm:w-1/2 md:w-1/3   relative">
             <div
               onClick={onClose}
               className="absolute top-2 right-2 text-gray-600 hover:text-black"
@@ -39,7 +38,7 @@ export function PopupForm({ open, onClose }) {
             <div className="flex justify-center">
               <Button variant="primary" text="Submit" onClick={handleClick} />
             </div>
-          </span>
+          </div>
         </div>
       )}
     </>
