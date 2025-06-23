@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const contentTypes = ["article", "video", "podcast", "image"];
+const contentTypes = ["youtube", "tweeter"];
 
 const contentSchema = new mongoose.Schema(
   {
@@ -33,5 +33,6 @@ const contentSchema = new mongoose.Schema(
   }
 );
 
-const Content = mongoose.model("Content", contentSchema);
+const Content =
+  mongoose.models.Content || mongoose.model("Content", contentSchema);
 export default Content;

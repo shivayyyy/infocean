@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/Button";
 import { PlusIcon, ShareIcon } from "@/components/Icons";
 import { Card } from "@/components/Card";
@@ -13,6 +13,22 @@ export default function Home() {
   const onclose = () => {
     setModalOpen(false);
   };
+  const [allContent, setAllContent] = useState([]);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const data = await axios.get(
+          "http://localhost:3000/api/v1/content/fetchContent"
+        );
+        console.log(data);
+        setAllContent(data);
+      } catch (error) {
+        console.log("error while displaying content on frontend");
+      }
+    };
+    fetchContent();
+  }, []);
 
   return (
     <div className="h-screen flex flex-col">
@@ -41,26 +57,9 @@ export default function Home() {
 
         {/* Card Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card
-            type="tweet"
-            title="The Physics of History"
-            description="A fascinating thread exploring the intersection of physics and historical events."
-            link="https://x.com/PhysInHistory/status/1935533428558184822"
-          />
-          <Card
-            type="youtube"
-            link="https://www.youtube.com/watch?v=bqQrnVn2CJY"
-          />
-          <Card
-            type="tweet"
-            title="The Physics of History"
-            description="A fascinating thread exploring the intersection of physics and historical events."
-            link="https://x.com/PhysInHistory/status/1935533428558184822"
-          />
-          <Card
-            type="youtube"
-            link="https://www.youtube.com/watch?v=bqQrnVn2CJY"
-          />
+          {allContent.map((item, index) => (
+            <>all conmtent here</>
+          ))}
         </div>
       </main>
     </div>

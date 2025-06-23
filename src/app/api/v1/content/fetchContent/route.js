@@ -1,19 +1,22 @@
 import { NextResponse } from "next/server";
 import Content from "@/models/contentModel";
+import { getAuth } from "@/middleware/auth";
 
 export async function GET(req) {
   try {
-    const contentId = req.nextUrl.searchParams.get("contentId");
-    if (!contentId) {
-      return NextResponse.json(
-        { error: "contentId is required" },
-        { status: 400 }
-      );
-    }
+    //take user id
+    const data = await getAuth(req);
+    console.log(data.user.id);
 
-    const getContent = await Content.findById(contentId)
-      .populate("tags", "name")
-      .populate("userId", "name");
+    //use userid to get content
+    const getContent = await Content.findOne({ userId: data.user.id });
+    console.log("content we got", getContent);
+    return NextResponse.json(
+      {
+        contents: getContent,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     return NextResponse.json(
       { error: "something went wrong while fetching content" },

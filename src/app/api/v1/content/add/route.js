@@ -9,6 +9,7 @@ console.log("Connected to the database content route");
 export async function POST(req) {
   try {
     const data = await getAuth(req);
+    console.log("user data found in route", data);
 
     if (!data) {
       return NextResponse.json(
@@ -29,17 +30,22 @@ export async function POST(req) {
     console.log(link, type, title, tags);
 
     const getUser = await User.findById(data.user.id);
+    console.log(data.user.id);
     if (!getUser) {
-      console.log(getUser);
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      console.log("your user");
     }
-    const addContent = new Content({
+    const contentData = {
       link,
       type,
       title,
-      tags,
-      userId: data.user.id,
-    });
+      userId: getUser._id,
+    };
+
+    if (tags && tags.length > 0) {
+      contentData.tags = tags;
+    }
+    const addContent = new Content(contentData);
+
     await addContent.save();
     return NextResponse.json(
       { message: "content added succefully" },
