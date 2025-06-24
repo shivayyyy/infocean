@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Button } from "@/components/Button";
 import { PlusIcon, ShareIcon } from "@/components/Icons";
 import { Card } from "@/components/Card";
@@ -12,17 +13,19 @@ export default function Home() {
   const handleClick = () => setModalOpen(true);
   const onclose = () => {
     setModalOpen(false);
+    console.log(allContents);
   };
-  const [allContent, setAllContent] = useState([]);
+  const [allContents, setAllContents] = useState([]);
 
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const data = await axios.get(
+        const res = await axios.get(
           "http://localhost:3000/api/v1/content/fetchContent"
         );
-        console.log(data);
-        setAllContent(data);
+
+        setAllContents(res.data.contents);
+        console.log(res.data.contents);
       } catch (error) {
         console.log("error while displaying content on frontend");
       }
@@ -57,9 +60,21 @@ export default function Home() {
 
         {/* Card Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {allContent.map((item, index) => (
-            <>all conmtent here</>
+          {allContents.map((item, index) => (
+            <div key={index}>
+              <Card
+                id={item._id}
+                title={item.title}
+                link={item.link}
+                type={item.type}
+              />
+            </div>
           ))}
+          <Card
+            type="tweeter"
+            link="https://x.com/TimesAlgebraIND/status/1937153112726212711"
+            title="first tweet"
+          />
         </div>
       </main>
     </div>

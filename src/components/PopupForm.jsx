@@ -73,6 +73,7 @@ export function PopupForm({ open, onClose }) {
                         text="Youtube"
                         onClick={() => {
                           setType("youtube");
+                          setContent((data) => ({ ...data, type: "youtube" }));
                         }}
                       />
                     </div>
@@ -82,6 +83,7 @@ export function PopupForm({ open, onClose }) {
                         text="Tweeter"
                         onClick={() => {
                           setType("tweeter");
+                          setContent((data) => ({ ...data, type: "tweeter" }));
                         }}
                       />
                     </div>

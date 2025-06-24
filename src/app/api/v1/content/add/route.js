@@ -12,10 +12,7 @@ export async function POST(req) {
     console.log("user data found in route", data);
 
     if (!data) {
-      return NextResponse.json(
-        { error: "unauthorized access!! Please login" },
-        { status: 401 }
-      );
+      console.error("unauthorized access");
     }
 
     const { link, type, title, tags } = await req.json();
@@ -40,6 +37,7 @@ export async function POST(req) {
       title,
       userId: getUser._id,
     };
+    console.log("content data for user", contentData);
 
     if (tags && tags.length > 0) {
       contentData.tags = tags;

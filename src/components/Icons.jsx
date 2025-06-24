@@ -69,7 +69,7 @@ export function LinkIcon() {
     </svg>
   );
 }
-export function TrashIcon({ size }) {
+export function TrashIcon({ size, onClick }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,16 +1,20 @@
 import { NextResponse } from "next/server";
 import Content from "@/models/contentModel";
 import { getAuth } from "@/middleware/auth";
+import connectDB from "@/dbConnection/db";
+
+connectDB();
 
 export async function GET(req) {
   try {
     //take user id
     const data = await getAuth(req);
-    console.log(data.user.id);
+    console.log("your user id", data.user.id);
 
     //use userid to get content
-    const getContent = await Content.findOne({ userId: data.user.id });
-    console.log("content we got", getContent);
+    const getContent = await Content.find({ userId: data.user.id });
+    console.log(getContent);
+
     return NextResponse.json(
       {
         contents: getContent,
